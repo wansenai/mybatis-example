@@ -1,5 +1,6 @@
 #数据库地址
-database_url: "mysql://root:123456@localhost:3306/test"
+driver_type: "com.mysql.jdbc.Driver"
+database_url: "localhost:3306/test"
 database_username: "root"
 database_password: "passw0rd"
 
