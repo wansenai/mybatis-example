@@ -1,13 +1,15 @@
 use serde::{Deserialize, Serialize};
+use mybatis::DateTimeNative;
 
 // 用户注册 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct UserRegisterDto {
-    pub id: Option<String>,
     pub user_name: Option<String>,
     pub user_password: Option<String>,
     pub name: Option<String>,
     pub phone: Option<String>,
+    pub sex: Option<i32>,
+    pub create_time: Option<DateTimeNative>,
 }
 
 /// 用户角色添加
