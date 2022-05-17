@@ -1,91 +1,51 @@
 use serde::de::DeserializeOwned;
 use serde::{Deserialize, Serialize};
 
-pub const CODE_SUCCESS: &str = "SUCCESS";
-pub const CODE_FAIL: &str = "FAIL";
-use actix_web::{HttpResponse};
+use super::result_code::ResultCode;
 
-use super::error::Error;
-
-/// http接口返回模型结构，提供基础的 code，msg，data 等json数据结构
 #[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct RespVO<T> {
-    pub code: Option<String>,
-    pub msg: Option<String>,
+pub struct IResult<T> {
+    pub code: String,
+    pub msg: String,
     pub data: Option<T>,
 }
 
-impl<T> RespVO<T>
-where
-    T: Serialize + DeserializeOwned + Clone,
-{
-    
-    pub fn default() -> Self {
+impl<T> IResult<T>
+{   
+    pub fn new(code: String, msg: String, data: Option<T>) -> Self {
         Self {
-            code: Some(CODE_SUCCESS.to_string()),
-            msg: None,
-            data: None,
-        }
-    }
-    
-    pub fn from_result(arg: &Result<T, Error>) -> Self {
-        if arg.is_ok() {
-            Self {
-                code: Some(CODE_SUCCESS.to_string()),
-                msg: None,
-                data: arg.clone().ok(),
-            }
-        } else {
-            Self {
-                code: Some(CODE_FAIL.to_string()),
-                msg: Some(arg.clone().err().unwrap().to_string()),
-                data: None,
-            }
+            code,
+            msg,
+            data,
         }
     }
 
-    pub fn from(arg: &T) -> Self {
+    pub fn success() -> Self {
         Self {
-            code: Some(CODE_SUCCESS.to_string()),
-            msg: None,
-            data: Some(arg.clone()),
-        }
-    }
-
-    pub fn from_error(code: &str, arg: &Error) -> Self {
-        let mut code_str = code.to_string();
-        if code_str.is_empty() {
-            code_str = CODE_FAIL.to_string();
-        }
-        Self {
-            code: Some(code_str),
-            msg: Some(arg.to_string()),
+            code: ResultCode::get_code(ResultCode::SUCCESS),
+            msg: ResultCode::get_msg(ResultCode::SUCCESS),
             data: None,
         }
     }
 
-    pub fn from_error_info(code: &str, info: &str) -> Self {
-        let mut code_str = code.to_string();
-        if code_str.is_empty() {
-            code_str = CODE_FAIL.to_string();
-        }
+    pub fn success_data(data: T) -> Self {
         Self {
-            code: Some(code_str),
-            msg: Some(info.to_string()),
-            data: None,
+            code: ResultCode::get_code(ResultCode::SUCCESS),
+            msg: ResultCode::get_msg(ResultCode::SUCCESS),
+            data: Some(data),
         }
     }
 
-    pub fn resp_json(&self) -> HttpResponse {
-        return HttpResponse::Ok()
-            .insert_header(("Access-Control-Allow-Origin", "*"))
-            .insert_header(("Cache-Control", "no-cache"))
-            .insert_header(("Content-Type", "text/json;charset=UTF-8"))
-            .body(self.to_string());
+    pub fn error() -> Self {
+        Self {
+            code: ResultCode::get_code(ResultCode::ERROR),
+            msg: ResultCode::get_msg(ResultCode::ERROR),
+            data: None,
+        }
     }
 }
 
-impl<T> ToString for RespVO<T>
+impl<T> ToString for IResult<T>
 where
     T: Serialize + DeserializeOwned + Clone,
 {

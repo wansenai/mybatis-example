@@ -3,5 +3,3 @@ driver_type: "com.mysql.jdbc.Driver"
 database_url: "localhost:3306/covid_19"
 database_username: "root"
 database_password: "passw0rd"
-
-
