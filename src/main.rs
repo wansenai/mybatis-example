@@ -19,8 +19,8 @@ use api::user_api;
 async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
-            .route("/hello", web::get().to(|| async { "Hello World!" }))
-            .service(user_api::login)
+            .route("/hello", web::get().to(|| async { "api server run successed" }))
+            .service(user_api::register)
     })
     .bind(("127.0.0.1", 8082))?
     .run()
