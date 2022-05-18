@@ -5,7 +5,7 @@ use mybatis::DateTimeNative;
 #[crud_table]
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct User {
-    pub id: Option<i64>,
+    pub id: Option<String>,
     // 用户名
     pub user_name: Option<String>,
     // 用户密码

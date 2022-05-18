@@ -6,10 +6,10 @@ use crate::domain::entity::user::User;
 use mybatis::snowflake;
 use mybatis::DateTimeNative;
 
-pub async fn save_user(user_dto: &UserRegisterDto) {
+pub async fn save_user(user_dto: &UserRegisterDto) -> bool {
     log::info!("userdto: {:?}", user_dto);
 
-    let snowflake_id: Option<i64> = Some(snowflake::new_snowflake_id());
+    let snowflake_id: Option<String> = Some(snowflake::new_snowflake_id().to_string());
 
     let user = User {
         id: snowflake_id,
@@ -22,7 +22,14 @@ pub async fn save_user(user_dto: &UserRegisterDto) {
         status: Some(0),
     };
 
-    UserDao::user_register(&user).await;
+    let exist_user = UserDao::exist_user(&user).await;
+    // if user not exist, then insert user to db
+    if exist_user == false {
+        UserDao::user_register(&user).await;
+        true
+    } else {
+        false
+    }
 }
 
 #[test]
