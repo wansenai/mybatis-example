@@ -43,6 +43,14 @@ impl<T> IResult<T>
             data: None,
         }
     }
+
+    pub fn other_error(code: &str, msg: &str) -> Self {
+        Self {
+            code: code.to_string(),
+            msg: msg.to_string(),
+            data: None,
+        }
+    }
 }
 
 impl<T> ToString for IResult<T>

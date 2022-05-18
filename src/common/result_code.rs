@@ -4,6 +4,7 @@ use serde::{Deserialize, Serialize};
 pub enum ResultCode {
     SUCCESS,
     ERROR,
+    USER_ALREADY_EXIST,
 }
 
 #[allow(dead_code)]
@@ -12,8 +13,9 @@ impl ResultCode{
         let mut code = String::new();
 
         match result {
-            SUCCESS => code = String::from("200"),
-            Error => code = String::from("500"),
+            ResultCode::SUCCESS => code = String::from("200"),
+            ResultCode::ERROR => code = String::from("500"),
+            ResultCode::USER_ALREADY_EXIST => code = String::from("3000"),
         };
 
         code
@@ -23,8 +25,9 @@ impl ResultCode{
         let mut msg = String::new();
 
         match result {
-            SUCCESS => msg = String::from("成功"),
-            Error => msg = String::from("失败"),
+            ResultCode::SUCCESS => msg = String::from("成功"),
+            ResultCode::ERROR => msg = String::from("失败"),
+            ResultCode::USER_ALREADY_EXIST => msg = String::from("用户已被注册"),
         };
 
         msg
