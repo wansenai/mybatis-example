@@ -1,5 +1,5 @@
 [package]
-name = "covid-mange-admin"
+name = "mybatis-example"
 version = "0.1.0"
 authors = ["James Zow <jameszow@163.com>"]
 edition = "2021"
