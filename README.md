@@ -1,2 +1,2 @@
-# Covid-19 Manage Admin
-Back end for summer mybatis framework example
+# Mybatis Example
+Example implementation of summer mybatis framework

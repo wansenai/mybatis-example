@@ -1,5 +1,5 @@
 [package]
-name = "covid-mange-admin"
+name = "mybatis-example"
 version = "0.1.0"
 authors = ["James Zow <jameszow@163.com>"]
 edition = "2021"
@@ -16,3 +16,7 @@ tokio = { version = "1.18.2", features = ["full"] }
 lazy_static = "1.4.0"
 async-trait = "0.1.53"
 log = "0.4.17"
+
+
+[target.x86_64-unknown-linux-gnu]
+linker = "rust-lld"
