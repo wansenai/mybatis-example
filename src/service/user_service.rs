@@ -6,6 +6,8 @@ use crate::domain::entity::user::User;
 use mybatis::snowflake;
 use mybatis::DateTimeNative;
 
+use std::collections::HashMap;
+
 pub async fn save_user(user_dto: &UserRegisterDto) -> bool {
     log::info!("userdto: {:?}", user_dto);
 
@@ -40,4 +42,16 @@ fn test_now() {
     let dt_new: DateTimeNative = rbson::from_bson(s).unwrap();
     println!("{},{}", dt.timestamp_millis(), dt_new.timestamp_millis());
     assert_eq!(dt, dt_new);
+}
+
+#[test]
+fn test(){
+    let mut m: HashMap<&str, &[u8]> = HashMap::new();
+    let s = "s";
+    let sb = s.as_bytes();
+    m.insert("s", sb);
+    let pa = 11i32.to_be_bytes();
+    m.insert("a", pa.as_slice());
+
+    println!("{:?}", m);
 }
