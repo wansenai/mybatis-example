@@ -1,5 +1,5 @@
 #数据库地址
 driver_type: "com.mysql.jdbc.Driver"
-database_url: "localhost:3306/covid_19"
+database_url: "101.43.52.162:3306/covid_19"
 database_username: "root"
-database_password: "passw0rd"
+database_password: "VrkLDMnev34hEdqX"

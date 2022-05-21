@@ -2,8 +2,7 @@ use serde::{Deserialize, Serialize};
 use mybatis::DateTimeNative;
 
 // 用户注册 
-#[crud_table]
-#[derive(Serialize, Deserialize, Clone, Debug)]
+#[derive(MybatisPlus, Serialize, Deserialize, Clone, Debug)]
 pub struct User {
     pub id: Option<String>,
     // 用户名

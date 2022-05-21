@@ -1,6 +1,6 @@
 use crate::config::database;
 use crate::domain;
-use mybatis::crud::CRUD;
+use mybatis::plus::Mapping;
 use domain::entity::user::User;
 use mybatis::snowflake;
 
